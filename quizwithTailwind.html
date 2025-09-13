@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen p-8 text-center"
+      style="background: linear-gradient(90deg, rgba(52,52,49,0.5), rgba(174,174,9,0.2)), url('https://i.ibb.co/gLvf38nG/beautifulleave.jpg'); background-size: cover; background-position: center; background-blend-mode: multiply; font-family: Arial, Helvetica, sans-serif;">
+
+  <section class="flex flex-col gap-[4vmin] max-w-[400px] w-full p-[7vmin] rounded-tl-[3vmin] rounded-br-[3vmin] text-[#ecdbb1]"
+           style="background: linear-gradient(135deg, rgba(233,233,7,0.16), rgba(104,104,54,0.5)), url('https://i.ibb.co/gLvf38nG/beautifulleave.jpg'); background-size: cover; background-position: center;">
+    
+    <!--✿◠‿◠💖 Timer -->
+    <div id="timeDisplay" class="self-start shadow-[0_0_2vmin_black] inline-block font-extrabold text-[3.5vmin] px-4 py-2 rounded-[3vmin_15vmin_3vmin_15vmin] bg-[rgba(94,123,66,0.5)]"></div>
+
+    <!--*^‿^*🌸 Progress Bar -->
+    <div class="progress relative w-full h-[15px] bg-[rgb(94,123,66)] overflow-hidden rounded-full">
+      <i id="progressBar" class="block w-full h-full rounded-full origin-right"
+         style="background: linear-gradient(90deg, rgb(91,25,32), rgb(3,125,3), rgb(243,243,2), rgb(243,163,2)); transform: scaleX(0);"></i>
+      <span id="left" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px] font-extrabold text-[rgb(169,243,172)] pointer-events-none"></span>
+    </div>
+
+    <!--(^o^)/🌷 Question Card -->
+    <div class="question-card mb-[3vmin] p-[3vmin] rounded-tl-[3vmin] rounded-br-[3vmin] font-black text-[2.5vmin] text-[#ecfbb1] bg-[rgba(121,133,72,0.4)]"></div>
+
+    <!-- (´｡• ᵕ •｡`)\💞Options -->
+    <div id="options" class="flex flex-wrap justify-center items-center gap-[2vmin]"></div>
+
+    <!--(´｡• ᵕ •｡`)\💞Feedback -->
+    <div class="feedback text-left font-extrabold"></div>
+
+    <!--｡•ˊ‿•ˋ｡🌺 Next Button -->
+    <button id="nextBtn" class="hidden text-[#f6ffd1] font-bold py-[2vmin] px-6 rounded-[3vmin_15vmin_3vmin_15vmin] bg-[rgba(121,133,72,0.4)] border-0 shadow-[0_0_2vmin_black]">Next Question</button>
+    
+  </section>
+
+ <script>
+
+    // ✿◠‿◠💖 Quiz Questions
+    const quizes = [
+        {
+          question: "Which country has the largest number of time zones in the world (including overseas territories)?",
+          answer: "France",
+          selections: ["Russia", "France", "United States"],
+        },
+        {
+          question: "What is the only sea in the world with no coastline?",
+          answer: "Sargasso Sea",
+          selections: ["Sargasso Sea", "Philippine Sea", "Coral Sea"],
+        },
+        {
+          question: "Which country is home to the world’s northernmost capital city?",
+          answer: "Iceland",
+          selections: ["Norway", "Iceland", "Canada"],
+        },
+        {
+          question: "The Danakil Depression, one of the hottest places on Earth, is located in which country?",
+          answer: "Ethiopia",
+          selections: ["Ethiopia", "Djibouti", "Sudan"],
+        },
+        {
+          question: "Which river crosses the equator twice?",
+          answer: "Congo River",
+          selections: ["Amazon River", "Congo River", "Nile River"],
+        },
+        {
+          question: "What is the highest mountain outside of Asia?",
+          answer: "Aconcagua",
+          selections: ["Denali", "Aconcagua", "Kilimanjaro"],
+        },
+        {
+          question: "Which country has the southernmost permanently inhabited settlement in the world?",
+          answer: "Chile",
+          selections: ["Argentina", "Chile", "New Zealand"],
+        },
+        {
+          question: "Which desert is the coldest desert on Earth?",
+          answer: "Antarctic Desert",
+          selections: ["Gobi Desert", "Antarctic Desert", "Patagonian Desert"],
+        },
+        {
+          question: "Which strait separates Asia from North America?",
+          answer: "Bering Strait",
+          selections: ["Bering Strait", "Davis Strait", "Cook Strait"],
+        },
+        {
+          question: "Which landlocked country has the most lakes in the world?",
+          answer: "Kazakhstan",
+          selections: ["Kazakhstan", "Mongolia", "Bolivia"],
+        },
+    ];
+
+    // (*^‿^*)🌸 Get Elements
+    const timer = document.querySelector('#timeDisplay');
+    const progressBar = document.getElementById("progressBar");
+    const progress = document.querySelector('.progress');
+    const questionCard = document.querySelector('.question-card');
+    const optionsDiv = document.querySelector('#options');
+    const feedback = document.querySelector('.feedback');
+    const nextBtn = document.querySelector('#nextBtn');
+    const left = document.querySelector('#left');
+
+    // (｡•́‿•̀｡)🌺 Variables
+    let intervalId;
+    let timeLeft;
+    let currentIndex = 0;
+    let point = 0;
+
+    // (≧▽≦)✨ Start Timer
+    function startTimer() {
+    timer.textContent = `Time Left: ${timeLeft}s`;
+    clearInterval(intervalId);
+    intervalId = setInterval(() => {
+        timeLeft--;
+        timer.textContent = `Time Left: ${timeLeft}s`;
+        progressBar.style.transform = `scaleX(${timeLeft/10})`;
+
+        if (timeLeft <= 0) {
+        clearInterval(intervalId);
+        disableOptionButtons(true);
+        timer.textContent = "Time's up";
+        nextBtn.classList.remove('hidden');
+        }
+    }, 1000);
+    }
+
+    // (⁄⁄>‿<⁄⁄)💗 Disable Option Buttons
+    function disableOptionButtons(disabled) {
+    const buttons = optionsDiv.querySelectorAll('button');
+    buttons.forEach(btn => btn.disabled = disabled);
+    }
+
+    // \(❁´◡`❁\)🌼 Check Answer
+    function checkAnswer(selected, correct) {
+    if (selected === correct) {
+        point++;
+        feedback.textContent = `Wow... you got it right!`;
+    } else {
+        feedback.textContent = `Not quite. The correct answer is ${correct}.`;
+    }
+    nextBtn.classList.remove("hidden");
+    disableOptionButtons(true);
+    clearInterval(intervalId);
+    }
+
+    // (^o^)/🌷 Load Question
+    function loadQuestion(index) {
+    clearInterval(intervalId);
+    timeLeft = 10;
+    startTimer();
+    const { question, answer, selections } = quizes[index];
+    optionsDiv.innerHTML = "";
+    feedback.textContent = "";
+    nextBtn.classList.add('hidden');
+    progressBar.style.transform = `scaleX(${timeLeft / 10})`;
+    left.textContent = `${index + 1}/${quizes.length}`;
+    questionCard.textContent = question;
+
+    selections.forEach(opt => {
+        const button = document.createElement('button');
+        button.textContent = opt;
+        button.className = "px-[2vmin] py-[3vmin] text-[2.3vmin] font-extrabold mr-[2vmin] rounded-[3vmin_15vmin_3vmin_15vmin] border-0 shadow-[0_0_2vmin_black] text-[#ecfbb1] bg-[rgba(121,133,72,0.4)]";
+        button.addEventListener('click', ()=> checkAnswer(opt, answer));
+        optionsDiv.appendChild(button);
+    });
+
+    disableOptionButtons(false);
+    }
+
+    // \(´｡• ᵕ •｡`)\💞 Show First Question
+    loadQuestion(currentIndex);
+
+    // (⊙_☉)💫 Next Button Logic
+    nextBtn.addEventListener('click', () => {
+    currentIndex++;
+    if (currentIndex < quizes.length) {
+        loadQuestion(currentIndex);
+    } else {
+        questionCard.style.color = "cyan";
+        questionCard.textContent = `Quiz finished! You scored ${point}/${quizes.length}`;
+        optionsDiv.innerHTML = "";
+        feedback.textContent = "";
+        nextBtn.classList.add('hidden');
+        timer.textContent = "";
+        progressBar.style.transform = "scaleX(0)";
+        left.textContent = "";
+        progress.innerHTML = "";
+        progress.style.backgroundColor = "transparent";
+    }
+    });
+
+  
+ </script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+/* ✿◠‿◠💛 RESET DEFAULT STYLES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 🌿 BODY STYLES */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 30px;
+    text-align: center;
+    height: 100vh;
+    background: #4e5339;
+    background: 
+        linear-gradient(90deg, rgba(52, 52, 49, 0.5), rgba(174, 174, 9, 0.2)),
+        url("https://i.ibb.co/gLvf38nG/beautifulleave.jpg");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+}
+
+/* 🌸 QUIZ SECTION STYLES */
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 4vmin;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 7vmin;
+    border-top-left-radius: 3vmin;
+    border-bottom-right-radius: 3vmin;
+    color: #f7ffd8;
+    background: 
+        linear-gradient(135deg, rgba(233, 233, 7, 0.16), rgba(104, 104, 54, 0.5)),
+        url("https://i.ibb.co/gLvf38nG/beautifulleave.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* ✨ TIMER STYLES */
+#timeDisplay {
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: 2vmin;
+    font-weight: bolder;
+    font-size: 4vmin;
+    padding: 0.5em 1em;
+    background: rgba(94, 123, 66, 0.5);
+    border-radius: 3vmin 15vmin 3vmin 15vmin;
+}
+
+/* 🌷 PROGRESS BAR CONTAINER */
+.progress {
+    width: 100%;
+    height: 15px;
+    background: rgb(94, 123, 66);
+    overflow: hidden;
+    position: relative;
+    border-radius: 999px;
+}
+
+/* 🌼 PROGRESS BAR FILL */
+.progress > i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgb(91, 25, 32), rgb(3, 125, 3), rgb(243, 243, 2), rgb(243, 163, 2));
+    transform-origin: right;
+    transform: scaleX(0);
+    border-radius: 999px;
+}
+
+/* 🏷 PROGRESS COUNTER */
+#left {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: bolder;
+    color: rgb(169, 243, 172);
+    pointer-events: none;
+}
+
+/* 📖 QUESTION CARD */
+.question-card {
+    background-color: rgba(121, 133, 72, 0.4);
+    color: #ecfbb1;
+    padding: 3vmin;
+    margin-bottom: 3vmin;
+    border-top-left-radius: 3vmin;
+    border-bottom-right-radius: 3vmin;
+    font-weight: 900;
+    font-size: 2.5vmin;
+}
+
+/* 🎯 OPTIONS CONTAINER */
+#options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2vmin;
+}
+
+/* 💌 FEEDBACK TEXT */
+.feedback {
+    font-weight: bolder;
+    text-align: start;
+}
+
+/* 🖲 BUTTON STYLES */
+button {
+    background-color: rgba(121, 133, 72, 0.4);
+    color: #ecfbb1;
+    border: none;
+    border-radius: 3vmin 15vmin 3vmin 15vmin;
+    cursor: pointer;
+    padding: 3vmin 2vmin;
+    font-size: 2.3vmin;
+    margin-right: 2vmin;
+    font-weight: bolder;
+    box-shadow: 0 0 2vmin black;
+}
+
+/* 🌺 NEXT BUTTON */
+#nextBtn {
+    display: none;
+    color: #f6ffd1;
+    padding: 2vmin 0;
+    border: none;
+    border-radius: 3vmin 15vmin 3vmin 15vmin;
+}
