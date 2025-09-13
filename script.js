@@ -48,7 +48,7 @@ const quizes = [
         {
           question: "Which landlocked country has the most lakes in the world?",
           answer: "Kazakhstan",
-          selections: ["Kazakhstan", "Mongolia", "Bolivia"],
+          selections: ["Kazakhstan", "Mongolia", "China"],
         },
 ];
 
