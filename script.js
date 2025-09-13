@@ -1,26 +1,57 @@
-// ✿◠‿◠💖 QUIZ QUESTIONS DATA
+// ✿◠‿◠💖 Quiz Questions
 const quizes = [
-    {
-        question: "Which country has the highest number of volcanoes in the world?",
-        answer: "Indonesia",
-        selections: ["Japan", "Chile", "Indonesia"]
-    },
-    {
-        question: "Lake Baikal, the deepest freshwater lake on Earth, is located in which region?",
-        answer: "Siberia",
-        selections: ["Tibet", "Siberia", "Scandinavia"]
-    },
-    {
-        question: "Which African country is completely surrounded by South Africa?",
-        answer: "Lesotho",
-        selections: ["Swaziland", "Botswana", "Lesotho"]
-    },
-    {
-        question: "Which desert is considered the largest hot desert in the world?",
-        answer: "Sahara",
-        selections: ["Gobi", "Sahara", "Kalahari"]
-    }
+        {
+          question: "Which country has the largest number of time zones in the world (including overseas territories)?",
+          answer: "France",
+          selections: ["Russia", "France", "United States"],
+        },
+        {
+          question: "What is the only sea in the world with no coastline?",
+          answer: "Sargasso Sea",
+          selections: ["Sargasso Sea", "Philippine Sea", "Coral Sea"],
+        },
+        {
+          question: "Which country is home to the world’s northernmost capital city?",
+          answer: "Iceland",
+          selections: ["Norway", "Iceland", "Canada"],
+        },
+        {
+          question: "The Danakil Depression, one of the hottest places on Earth, is located in which country?",
+          answer: "Ethiopia",
+          selections: ["Ethiopia", "Djibouti", "Sudan"],
+        },
+        {
+          question: "Which river crosses the equator twice?",
+          answer: "Congo River",
+          selections: ["Amazon River", "Congo River", "Nile River"],
+        },
+        {
+          question: "What is the highest mountain outside of Asia?",
+          answer: "Aconcagua",
+          selections: ["Denali", "Aconcagua", "Kilimanjaro"],
+        },
+        {
+          question: "Which country has the southernmost permanently inhabited settlement in the world?",
+          answer: "Chile",
+          selections: ["Argentina", "Chile", "New Zealand"],
+        },
+        {
+          question: "Which desert is the coldest desert on Earth?",
+          answer: "Antarctic Desert",
+          selections: ["Gobi Desert", "Antarctic Desert", "Patagonian Desert"],
+        },
+        {
+          question: "Which strait separates Asia from North America?",
+          answer: "Bering Strait",
+          selections: ["Bering Strait", "Davis Strait", "Cook Strait"],
+        },
+        {
+          question: "Which landlocked country has the most lakes in the world?",
+          answer: "Kazakhstan",
+          selections: ["Kazakhstan", "Mongolia", "Bolivia"],
+        },
 ];
+
 
 // (｡•́‿•̀｡)🌺 GET HTML ELEMENTS
 const progressBar = document.getElementById("progressBar");
